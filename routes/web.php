@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\EmployeeController;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Route;
@@ -15,11 +17,21 @@ use App\Models\User;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// admin 
 
-Route::get('/', [EmployeeController::class, "index"]);
+Route::get('/', [EmployeeController::class, "index"]); 
+Route::get("/login",[AdminController::class,"showLogin"]);
+Route::get('/register',[AdminController::class,"index"]);
+Route::post("/admin/register",[AdminController::class,"register"]);
+Route::post("/login/admin",[AdminController::class,"login"]);
+
+// employee 
+
 Route::get("/employee/addNewEmployee",[EmployeeController::class,"showAddEmployee"]);
 Route::post("/employee",[EmployeeController::class,"createNewEmployee"]);
-Route::get("/employee/{id:}/edit",[EmployeeController::class,"showEditEmployee"]);
+Route::get("/employee/{employee}/edit",[EmployeeController::class,"showEditEmployee"]);
+Route::put("/employee/edit/{employee}",[EmployeeController::class,"editEmployee"]);
+Route::delete("/employee/delete/{employee}",[EmployeeController::class,"deleteEmployee"]);
 
 
 

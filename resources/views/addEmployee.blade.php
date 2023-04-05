@@ -1,4 +1,5 @@
 @extends("layout")
+@section('title','Add New Employee')
 @section('content')
 
 <div style=" padding: 70px 0;
@@ -62,10 +63,10 @@ text-align: center;">
 
             <div class="input-group">
               <div class="input-group-text">🔑</div>
-              <input type="password" class="form-control" name="confirm_password" value="{{old("confirm_password")}}"" id="specificSizeInputGroupUsername" placeholder="Confirm password" >
+              <input type="password" class="form-control" name="employee_password_confirmation" value="{{old("employee_password_confirmation")}}"" id="specificSizeInputGroupUsername" placeholder="Confirm password" >
             </div>
   
-            @error('confirm_password')  
+            @error('employee_password_confirmation')  
             <div style="color: #D8000C;
               text-align: left; ">
   

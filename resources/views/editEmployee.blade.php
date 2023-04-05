@@ -1,94 +1,79 @@
-{{-- 
+
 @extends('layout')
 
 @section('content')
+
+<div  style="display: flex;justify-content: center; align-items: center;">
+  <div style="background-color: gray ;width:30%; text-align:center; margin:20px; border-radius: 15px; padding:10px">  
+    <h1 style="margin: 10px"> Edit Employee</h1>
+
+    <form class="row g-3" action="/employee/edit/{{$employee-> id}}" method="POST" enctype="multipart/form-data" >
+      @csrf 
+      @method("PUT")
+
+    <!--   Name -->
     
+      <div class="input-group mb-3" style="padding: 20px">
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input type="text" class="form-control" placeholder="Employee Name" name="employeeName" aria-describedby="basic-addon1" value="{{$employee->employee_name}}">
+      </div>
+
+      @error('employeeName')  
+      <div style="color: #D8000C;
+        text-align: left; ">
+
+        ⚠️{{$message}}
+      </div>
+      @enderror
+
+     <!--   Email -->
+
+      <div class="input-group mb-3" style="padding: 20px">
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input type="email" class="form-control" placeholder="Employee Email"  name="employeeEmail" disabled aria-describedby="basic-addon1" value="{{$employee->employee_email}}">
+      </div>
+
+     
+        
+    
+     <!--   password -->
+
+      <div class="input-group mb-3" style="padding: 20px">
+                <span class="input-group-text" id="basic-addon1">@</span>
+        <input type="password" class="form-control" placeholder="Employee Password"   name="employee_password" aria-describedby="basic-addon1" value="{{$employee->employee_password}}">
+      </div>
+
+      @error('employee_password')  
+      <div style="color: #D8000C;
+        text-align: left; ">
+
+        ⚠️{{$message}}
+      </div>
+          
+      @enderror
+
+
+      <!--   confirm password -->
+     
+        <div class="input-group mb-3" style="padding: 20px">
+          <span class="input-group-text" id="basic-addon1">@</span>
+          <input type="password" class="form-control" placeholder="confirm password"   name="employee_password_confirmation"  aria-describedby="basic-addon1" value="{{$employee->employee_password}}">
+        </div>
+     
+        <div class="input-group mb-3" style="padding: 20px">
+          <img src={{asset('storage/'.$employee->employee_image)}} style="width:250px; height:250px" />
+        </div> 
+    
+        <div class="input-group mb-3" style="padding: 20px">
+        <input type="file" class="form-control" name="employeeImage" >
+      </div>
+     
+
+        <button type="submit" class="btn btn-success">Edit</button>
+      </form>
+     
+  </div>
+ 
+     
+    </div>
 @endsection
-<h1>{{$viewName}}</h1>
-
-@if(count($array) > 0)
-@foreach ($array as $key)
-
-<h2>{{$key["id"]}}</h2>
-<p>{{$key["name"]}}</p>
-<p>{{$key["email"]}}</p>
-@endforeach
-
-@else
-
-<h4>There No Users </h4>
-@endIf --}}
-
-{{-- @endsection  --}}
-
-
-    
-      <header class="text-center">
-        <h2 class="text-2xl font-bold uppercase mb-1">Register</h2>
-        <p class="mb-4">Create an account to post gigs</p>
-      </header>
-       <form>
-        <div class="mb-6">
-            <label for="name" class="inline-block text-lg mb-2"> Name </label>
-            <input type="text" class="border border-gray-500 rounded p-2 w-full" name="name" />
-        </div>
-       </form>
-      {{-- <form method="POST" action="/users">
-        @csrf
-        <div class="mb-6">
-          <label for="name" class="inline-block text-lg mb-2"> Name </label>
-          <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name" value="{{old('name')}}" />
-  
-          @error('name')
-          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-          @enderror
-        </div>
-  
-        <div class="mb-6">
-          <label for="email" class="inline-block text-lg mb-2">Email</label>
-          <input type="email" class="border border-gray-200 rounded p-2 w-full" name="email" value="{{old('email')}}" />
-  
-          @error('email')
-          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-          @enderror
-        </div>
-  
-        <div class="mb-6">
-          <label for="password" class="inline-block text-lg mb-2">
-            Password
-          </label>
-          <input type="password" class="border border-gray-200 rounded p-2 w-full" name="password"
-            value="{{old('password')}}" />
-  
-          @error('password')
-          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-          @enderror
-        </div>
-  
-        <div class="mb-6">
-          <label for="password2" class="inline-block text-lg mb-2">
-            Confirm Password
-          </label>
-          <input type="password" class="border border-gray-200 rounded p-2 w-full" name="password_confirmation"
-            value="{{old('password_confirmation')}}" />
-  
-          @error('password_confirmation')
-          <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-          @enderror
-        </div>
-  
-        <div class="mb-6">
-          <button type="submit" class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
-            Sign Up
-          </button>
-        </div>
-  
-        <div class="mt-8">
-          <p>
-            Already have an account?
-            <a href="/login" class="text-laravel">Login</a>
-          </p>
-        </div>
-      </form> --}}
-    
-  

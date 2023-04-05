@@ -15,11 +15,11 @@ class EmployeeSeeder extends Seeder
     {
         // Employee::factory(10)->create();
         Employee::create([
-            'id'=>"10111",
+        
             'employee_name'=>"Amer Essa",
             'employee_email'=>"amer-essa@gmail.com", 
             'employee_password'=>"12344",
-            'employee_image'=>"employeesImage/VhVKxUIzV4vXiV0Z5sBwOwRaYQ5oLaf9CJj3dEw1.jpg",
+            'employee_image'=>"employeesImage/UFEJws6ExepASfif3SLslaZqfhWUVo5lxLQvjVNQ.jpg",
             'created_at'=>now()
         ]);
     

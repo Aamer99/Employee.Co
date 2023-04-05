@@ -14,9 +14,18 @@
       <div class="card-body">
         <h5 class="card-title">{{$employee -> employee_name}}</h5>
         <p class="card-text">{{$employee -> employee_email}}</p>
+        <div class="d-grid gap-2" style="padding: 10px">
         <a type="button" href="/employee/{{$employee-> id}}\edit" class="btn btn-outline-success" >Edit</a>
-        <button type="button" class="btn btn-outline-danger">Delete</button>
-       
+        </div>
+        
+        <form method="POST" action="/employee/delete/{{$employee-> id}}">
+          @csrf
+          @method("DELETE")
+          <div class="d-grid gap-2" style="padding: 10px">
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+      </div>
+        </form>
+      
       </div>
     </div>
     @endforeach
