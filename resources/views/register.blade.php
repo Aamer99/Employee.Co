@@ -19,7 +19,7 @@
    
       <div class="col">
         <div class="container text-center" style="background-color:rgb(197, 78, 78);margin:20px; height:90vh; border-radius: 15px;">
-        <img src="https://images.pexels.com/photos/3760072/pexels-photo-3760072.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="height: 100%; width:100%;padding:20px; border-radius: 15px;"/>
+        <img src="" style="height: 100%; width:100%;padding:20px; border-radius: 15px;"/>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
             <p style="text-align: center" >Please Fill all the fileds to creaet an account</p>
             <div style="max-width: 50%;" class="container text-center"> 
 
-                <form action="/admin/register" method="POST" enctype="multipart/form-data" >
+                <form action="/user/register" method="POST" enctype="multipart/form-data" >
                     @csrf 
 
                 
@@ -37,10 +37,10 @@
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label" style="float: left">Full Name</label>
-                <input type="text" name="fullName" class="form-control" ivalue="{{old("fullName")}}" placeholder="Full Name ">
+                <input type="text" name="userName" class="form-control" ivalue="{{old("userName")}}" placeholder="Full Name ">
               </div> 
 
-              @error('fullName')
+              @error('userName')
                  <div style="color: #D8000C;
                     text-align: left; ">
                         ⚠️{{$message}}
@@ -61,45 +61,50 @@
                   
               @enderror
 
+               <!-- Password --> 
+
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label" style="float: left">Password</label>
-                <input type="password" name="password" class="form-control"  value="{{old('password')}}" placeholder="******"  />
+                <input type="password" name="userPassword" class="form-control"  value="{{old('userPassword')}}" placeholder="******"  />
               </div>
-
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label" style="float: left">Confirm Password</label>
-                <input type="password" name="password_confirmation" class="form-control"  value="{{old('password')}}" placeholder="******"  />
+              @error('userPassword')  
+              <div style="color: #D8000C;
+                text-align: left; ">
+    
+                ⚠️{{$message}}
               </div>
-
-              @error('password')
-                <div style="color: #D8000C;
-                        text-align: left; ">
-                             ⚠️{{$message}}
-                        </div>
+                  
               @enderror
 
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label" style="float: left">Phone Number</label>
-                <input type="text" name= "phoneNumber" class="form-control" value="{{old("phoneNumber")}}" placeholder="966*********">
-              </div>  
-
-              @error('phoneNumber')
-                <div style="color: #D8000C;
-                    text-align: left; ">
-                        ⚠️{{$message}}
-                        </div>                  
-              @enderror
-
-              <div class="mb-3">
-                <button type="button" class="btn btn-link" style="float: right">Forgot Password?</button>
+                <label for="exampleFormControlTextarea1" class="form-label" style="float: left">Confime Password</label>
+                <input type="password" name="userPassword_confirmation" class="form-control"  value="{{old('userPassword_confirmation')}}" placeholder="******"  />
               </div>
+
+             
+                {{-- profile image   --}}
+
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label" style="float: left">Profile Image</label>
+              <input type="file" class="form-control" aria-label="file example" required name="userProfileImage">
+            </div>
+
+            @error('userProfileImage')  
+            <div style="color: #D8000C;
+              text-align: left; ">
+                   ⚠️{{$message}}
+            </div>
+                
+            @enderror
 
               <div class="mb-3">
                  <div class="d-grid gap-2 col-6 mx-auto" style="padding-top:50px">
                      <button class="btn btn-primary" type="submit">Sign up</button>
                  </div>
               <div style="margin: 20px">
-                  <button type="button" class="btn btn-link" style="text-align:center">Have an account? Login</button>
+                <p>Have an account? 
+                  <a href="/login"> Login</a>
+                </p>
               </div>
               </div>
             </div>

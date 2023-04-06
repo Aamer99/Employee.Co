@@ -20,7 +20,7 @@
         <div style="margin:20px" >
             <h4 style="text-align: center">Get Start Now </h4>
             <div style="max-width: 50%;" class="container text-center"> 
-            <form method="POST" action="/login/admin" enctype="multipart/form-data" >     
+            <form method="POST" action="/user/login" enctype="multipart/form-data" >     
               @csrf
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label" style="float: left">Email address</label>
@@ -43,7 +43,7 @@
                      </div>
            @enderror
               <div class="mb-3">
-              <button type="button" class="btn btn-link" style="float: right">Forgot Password?</button>
+              <a href="#" class="btn btn-link"  style="float: right">Forgot Password?</a>
               </div>
               <div class="mb-3">
               <div class="d-grid gap-2 col-6 mx-auto" style="padding-top:50px">
@@ -51,7 +51,7 @@
               </div>
 
               <div style="margin: 20px">
-              <button type="button" class="btn btn-link" style="text-align:center">Have an account? Sing up</button>
+              <a href="/register"class="btn btn-link" style="text-align:center">Have an account? Sing up</a>
               
               </div>
               </div>

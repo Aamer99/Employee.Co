@@ -22,11 +22,11 @@ class DatabaseSeeder extends Seeder
     {
 
         // this well crete 10 user withe name Test User and email test@example.com by uncomment the flowing  commend and run this commend ==>  php artisan db:seed 
-        $this->call([
-            EmployeeSeeder::class,
-            PostSeeder::class,
+        // $this->call([
+        //     EmployeeSeeder::class,
+        //     PostSeeder::class,
             
-        ]);
+        // ]);
         
        // this way tou can crete user on the database 
         
