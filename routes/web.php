@@ -1,76 +1,69 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AppController;
-use App\Http\Controllers\CompanyContoller;
+
 use App\Http\Controllers\PostController;
-// use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\UserController;
-use App\Models\Employee;
 use Illuminate\Support\Facades\Route;
-use App\Models\users;
-use App\Models\User;
 
 
-
-// Route::prefix('/')->middleware("verifyAuth")->group(function(){
- //   Route::get("/employee/addNewEmployee",[EmployeeController::class,"showAddEmployee"]);
- //   Route::get("/employee/{employee}/edit",[EmployeeController::class,"showEditEmployee"]);
-   // Route::get('/', [EmployeeController::class, "index"]); 
-    // Route::get('/Company/AddNew',[CompanyContoller::class,'showAddCompany']);
-// });
-
-// Route::prefix('/')->middleware("block")->group(function(){
-    // Route::get("/login",[AdminController::class,"showLogin"]);
-    // Route::get('/register',[AdminController::class,"index"]);
-// });
-
-// admin 
-
-// Route::post("/admin/register",[UserController::class,"craetUser"]);
-// Route::post("/users/login",[AdminController::class,"login"]);
-// Route::post("/logout/admin",[AdminController::class,"logout"]);
-
-// employee 
-
-//Route::post("/employee",[EmployeeController::class,"createNewEmployee"]);
-// Route::put("/employee/edit/{employee}",[EmployeeController::class,"editEmployee"]);
-// Route::delete("/employee/delete/{employee}",[EmployeeController::class,"deleteEmployee"]);
-
-// company 
-
-// Route::post("/company",[CompanyContoller::class,"createNewCompany"]);
-
-/*-------------------------------------------------------------------------------------------------*/
 
 Route::prefix('/post')->middleware("verifyAuth")->group(function(){
+    
     Route::get('/addNew',[PostController::class,"showAddPost"]);
-    Route::get('/myPosts',[PostController::class,"showMyPosts"]);
-    Route::get('/showPost/{Post}',[PostController::class,"showPost"]);
-    Route::get('/requests', [PostController::class,"showPostRequests"]);
+    Route::get('/myPosts/{user}',[PostController::class,"showMyPosts"]);
+    Route::get('/{Post}',[PostController::class,"showPost"]);
+    Route::get("/edit/{post}",[PostController::class,"showEditPost"]);
 
-    //admin 
+    Route::put("/approve/{post}",[PostController::class,"approvePost"]);
+    Route::put("/edit/{post}",[PostController::class,"editPost"]);
 
-    Route::get("/user/all",[UserController::class,'showAllUsers']);
+    Route::delete("/delete/{post}",[PostController::class,"deletePost"]);
+    Route::delete('/deny/{post}',[PostController::class,"denyPost"]);
+    Route::delete("/deleteDeniedPost/{post}",[PostController::class,"deleteDeniedPost"]);
 
 });
 
+Route::prefix("/admin")->middleware("verifyAuth")->group(function(){
+
+    Route::get('/requests', [PostController::class,"showPostRequests"]);
+    Route::get('/deniedRequests',[PostController::class,"showDeniedRequests"]);
+    Route::get("/addNewUser",[UserController::class,"showAddNewUser"]);
+});
+
+Route::prefix("/user")->middleware("verifyAuth")->group(function(){
+
+    Route::delete("/delete/{user}",[UserController::class,"deleteUser"]);
+
+    Route::get("/edit/{user}",[UserController::class,"showEditUserAccount"]);
+    Route::get("/all",[UserController::class,'showAllUsers']);
+
+    Route::put("/editProfile/{user}",[UserController::class,"editUser"]);
+
+});
 //posts 
 
 Route::get("/",[PostController::class,"index"]);
-Route::post("/post",[PostController::class,"addNewPost"]);
-Route::delete('/post/{post}',[PostController::class,"deletePost"]);
-Route::put("/post/approve/{post}",[PostController::class,"approvePost"]);
+Route::post("/addNewPost",[PostController::class,"addNewPost"]);
 
+// Route::delete('/post/deny/{post}',[PostController::class,"denyPost"]);
+// Route::put("/post/approve/{post}",[PostController::class,"approvePost"]);
+// Route::delete("/post/delete/{post}",[PostController::class,"deletePost"]);
+// Route::put("/post/edit/{post}",[PostController::class,"editPost"]);
+// Route::delete("/post/deleteDeniedPost/{post}",[PostController::class,"deleteDeniedPost"]);
 
-
-
+// Route::delete("user/delete/{user}",[UserController::class,"deleteUser"]);
+// Route::get("/user/edit/{user}",[UserController::class,"showEditUserAccount"]);
 Route::get("/login",[UserController::class,"showLogin"]);
 Route::get("/register",[UserController::class,"showRegister"]);
 Route::post("/user/login",[UserController::class,"login"]);
 Route::post("/user/register",[UserController::class,"craetUser"]);
 Route::post('/user/logout',[UserController::class,"logout"]);
 
+// Route::post("/user/login",[UserController::class,"login"]);
+// Route::post("/user/register",[UserController::class,"craetUser"]);
+// Route::post('/user/logout',[UserController::class,"logout"]);
+// Route::put("/user/editProfile/{user}",[UserController::class,"editUser"]);
 
+// Route::get("/user/all",[UserController::class,'showAllUsers'])->middleware("verifyAuth");
 
 

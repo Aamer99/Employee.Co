@@ -1,13 +1,9 @@
-@extends('layout')
-@section('title','Posts Requests')
-@section('content') 
-
-
-<div class="mx-auto max-w-7xl px-6 lg:px-8">
-  <h2 class="text-2xl font-bold tracking-tight text-gray-800 sm:text-4xl"> Posts Requests</h2>
-  <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+@extends('pageHeader')
+@section('pageTitle','Denied Requests')
+@section('pageContent') 
+      
+  <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
   
-  {{-- <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3 group-hover:text-gray-600"> --}}
     @foreach ($posts as $post)
         
    
@@ -15,17 +11,8 @@
 
       <div class="group relative">
         <h3 class="mt-2 text-lg font-semibold text-gray-900" >
-          
-           
             {{$post-> title}} 
-            
-            {{-- @if ($post-> status == 0 && !$post-> trashed())
-            <p style="width:100%; padding:3px;border-radius: 25px; font-size:15px; color:rgb(46, 46, 46)"> <span style="color: orange; font-size:15px">●</span>  Biding</p>
-            @elseif($post-> status == 1 && !$post-> trashed())
-            <p style="width:100%; padding:3px;border-radius: 25px; font-size:15px; color:rgb(46, 46, 46)"> <span style="color: green; font-size:15px">●</span>  Published</p>
-            @else 
-            <p style="width:100%; padding:3px;border-radius: 25px; font-size:15px; color:rgb(46, 46, 46)"> <span style="color: red; font-size:15px">●</span>  Denied</p>
-            @endif --}}
+
         </h3>
         <p class="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">{{$post-> content}}</p>
       </div>
@@ -34,7 +21,7 @@
       <div class="mt-5 flex lg:ml-4 lg:mt-0">
         <span class="hidden sm:block">
        
-          <form action="/post/deny/{{$post-> id}}" method="POST">
+          <form action="/post/deleteDeniedPost/{{$post-> id}}" method="POST">
             @csrf
             @method('DELETE')
             <button type="submit" class="inline-flex items-center rounded-md  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" style="background-color: rgba(241, 238, 238, 0.582)">
@@ -42,7 +29,7 @@
                   <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" /> 
                    <path d="M10 10l4 4m0 -4l-4 4" />
                   </svg> 
-                  Deny
+                  Delete
              </button>
           </form>
         </span>

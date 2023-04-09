@@ -22,6 +22,13 @@ class UserController extends Controller
         return view("register");
     }
 
+    public function showAddNewUser(){
+        return view("register");
+    }
+
+    public function showEditUserAccount(User $user){
+        return view("editUserAccount",['user'=> User::find($user-> id)]);
+    }
 
     public function craetUser(Request $request){
 
@@ -46,6 +53,9 @@ class UserController extends Controller
                  $newUser-> total_posts = 0;
                  $newUser->save();
         } 
+        if(auth()->user()){
+            return redirect('/user/all');
+        }
 
             return redirect('/login');
 
@@ -79,5 +89,25 @@ class UserController extends Controller
         $request->session()->regenerateToken();
     
         return redirect('/login');
+     }
+
+     public function deleteUser(User $user){
+        $user-> delete();
+        return redirect("/user/all");
+     }
+
+     public function editUser(User $user,Request $request){
+
+        $user-> name = $request-> userName;
+        $user-> email = $request-> email; 
+        $user-> password = Hash::make($request-> userPassword); 
+        if($request->hasFile("userProfileImage")){
+            $imagePath = $request->file('userProfileImage')->store('employeesImage','public');
+            $user->  profileImage = $imagePath;
+        }
+        $user-> save();
+
+        return redirect("/user/all");
+
      }
 }

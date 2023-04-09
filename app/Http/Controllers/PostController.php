@@ -9,23 +9,37 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        return view("home",["posts"=>Post::all()]);
+        return view("home",["posts"=>Post::where("status",1)->get(),"users"=> User::where("type",1)->get()]);
     }
 
-    public function showPost(){
-        return view("post");
+    public function showPost(Post $post){
+        
+        return view("post",["post"=> Post::find($post-> id)]);
     }
 
     public function showAddPost(){
         return view("addNewPost");
     }
 
-    public function showMyPosts(){
-        return view("myPosts",['posts'=>Post::all()]);
+    public function showMyPosts(User $user){
+        
+       
+        return view("myPosts",['posts'=>Post::withTrashed()->where("user_id",$user-> id)->get()]);
     }
 
     public function showPostRequests(){
-        return view("postRequests",["posts"=> Post::all()]);
+        return view("postRequests",["posts"=> Post::where('status','0')->get()]);
+    }
+
+    public function showDeniedRequests(){
+        return view("DeniedRequests",["posts"=> Post::onlyTrashed()->get()]);
+    }
+
+    public function showEditPost(Post $post){
+
+        // $data = Post::find(3);
+        // dd($data->all());
+        return view("editPost",["post"=> Post::find($post-> id)]);
     }
 
     public function addNewPost(Request $request){
@@ -34,21 +48,48 @@ class PostController extends Controller
             'postTitle'=>'required', 
             'postContent'=>'required',
         ]);
-        $newPost = new Post();
+        
+        $newPost = new Post(); 
         $newPost-> title = $request-> postTitle;
         $newPost-> content = $request-> postContent;
         $newPost-> status = 0;
         $newPost-> user_id = auth()->user()->id; 
         $newPost-> save();
 
-        return redirect('/post/myPosts');
+        return redirect('/post/myPosts/'.auth()->user()-> id);
+    }
+
+    public function denyPost(Post $post){
+        $post-> status = '2';
+        $post-> save();
+        $post-> delete();
+        return redirect('/admin/requests');
     }
 
     public function deletePost(Post $post){
-        $post-> delete();
-        return redirect('/post/requests');
+        
+        $post->forceDelete();
+        $userID = $post-> user_id;
+        $user = User::find($userID);
+        $user-> total_posts = $user-> total_posts - 1;
+        $user -> save();
+        return redirect("/");
     }
 
+    public function deleteDeniedPost(Post $post){
+        $posts = Post::onlyTrashed()->find($post-> id);
+        $posts->forceDelete();
+        return redirect('/admin/requests');
+    }
+    
+
+    public function editPost(Post $post,Request $request){
+        $post-> title = $request-> postTitle ;
+        $post-> content = $request-> postContent;
+        $post-> status = '0'; 
+        $post-> save();
+        return redirect('/');
+    }
     public function approvePost(Post $post){
 
        $post-> status = "1";
@@ -58,8 +99,14 @@ class PostController extends Controller
       $user = User::find($userID);
       $user-> total_posts = $user-> total_posts + 1;
       $user -> save();
+        return redirect("/admin/requests");
+    }
 
-        return redirect("/post/requests");
+    public function restore(Post $post){
+        $posts = Post::onlyTrashed()->find($post-> id);
+        $posts->restore();
+        
+        return redirect("/");
     }
 
    

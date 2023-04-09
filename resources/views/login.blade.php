@@ -4,71 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-   
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
-    <title>@yield('title','Employee.Co')</title>
+    <link href="/dist/output.css" rel="stylesheet"> 
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            }
+          }
+        }
+      }
+    </script>
+     <style type="text/tailwindcss">
+      @layer utilities {
+        .content-auto {
+          content-visibility: auto;
+        }
+      }
+    </style>
+      <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <title>@yield('title','Did You Know?')</title>
 </head>
 <body style="margin: 0;">
 
-{{-- <div class="container text-center" style="background-color:black; width: 100vw;"> --}}
-    <div class="row" style="height:100vh; width:100vw">
-      <div class="col" >
-        <div style="margin:20px" >
-            <h4 style="text-align: center">Get Start Now </h4>
-            <div style="max-width: 50%;" class="container text-center"> 
-            <form method="POST" action="/user/login" enctype="multipart/form-data" >     
-              @csrf
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label" style="float: left">Email address</label>
-                <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-              </div>
-              @error('email')
-              <div style="color: #D8000C;
-                 text-align: left; ">
-                     ⚠️{{$message}}
-                     </div>
-           @enderror
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label" style="float: left">Password</label>
-                <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="******" name="password" />
-              </div>
-              @error('password')
-              <div style="color: #D8000C;
-                 text-align: left; ">
-                     ⚠️{{$message}}
-                     </div>
-           @enderror
-              <div class="mb-3">
-              <a href="#" class="btn btn-link"  style="float: right">Forgot Password?</a>
-              </div>
-              <div class="mb-3">
-              <div class="d-grid gap-2 col-6 mx-auto" style="padding-top:50px">
-                <button class="btn btn-primary" type="submit">Login</button>
-              </div>
 
-              <div style="margin: 20px">
-              <a href="/register"class="btn btn-link" style="text-align:center">Have an account? Sing up</a>
-              
-              </div>
-              </div>
-            </form>
+     <div class="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+      <div class="w-full max-w-md space-y-8">
+        <div>
+          <img class="mx-auto h-40 w-auto" src="{{asset('storage/Image/logo_transparent.png')}}" alt="Your Company">
+          <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Wellcome Back</h2>
+          <p class="mt-2 text-center text-sm text-gray-600">
+            Please Enter Your Details
+          </p>
+        </div>
+        <form class="mt-8 space-y-6" method="POST" action="/user/login" enctype="multipart/form-data" >
+          @csrf
+          <input type="hidden" name="remember" value="true">
+          <div class="-space-y-px rounded-md shadow-sm">
+            <div>
+              <label for="email-address" class="sr-only">Email address</label>
+              <input id="email-address" name="email" type="email" autocomplete="email" required class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Email address">
             </div>
-            
-            
-            
+              @error('email')
+                   <div  class="col-span-full" style="color: #D8000C; text-align: left; ">
+                     ⚠️{{$message}}
+                   </div>
+              @enderror
+
+            <div>
+              <label for="password" class="sr-only">Password</label>
+              <input id="password" name="password" type="password" autocomplete="current-password" required class="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Password">
+            </div>
+
+              @error('password')
+                   <div class="col-span-full" style="color: #D8000C; text-align: left; ">
+                     ⚠️{{$message}}
+                   </div>
+                @enderror
+          </div>
+    
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+              <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+            </div>
+    
+            <div class="text-sm">
+              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+            </div>
+          </div>
+    
+          <div>
+            <button type="submit" class="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              Sign in
+            </button>
+          </div>
+          <div class="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+            <p>You Don't Have an Account? 
+            <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500"> Register</a>
+          </p>
+          </div>
         </div>
-        
+        </form>
       </div>
-      <div class="col">
-        <div class="container text-center" style="background-color:rgb(197, 78, 78);margin:20px; height:90vh; border-radius: 15px;">
-        <img src="https://images.pexels.com/photos/3760072/pexels-photo-3760072.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" style="height: 100%; width:100%;padding:20px; border-radius: 15px;"/>
-        </div>
-      </div>
-    {{-- </div> --}}
-</div>
+    </div>
 </body>
 </html>
