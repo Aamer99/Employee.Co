@@ -21,12 +21,12 @@
         </div>
         <div class="group relative">
           <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-            <a href="/post/{{$post-> id}}">
+            <a href="/post/showPost/{{$post-> id}}">
               <span class="absolute inset-0"></span>
               {{$post-> title}}
             </a>
           </h3>
-          <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
+          <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{$post-> content}}</p>
         </div>
         
         <div class="relative mt-8 flex items-center gap-x-4">

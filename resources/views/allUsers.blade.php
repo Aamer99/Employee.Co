@@ -21,14 +21,16 @@
             @if ($user-> id != auth()->user()-> id)
             <tr style="text-align: center">
                 <td>
+                  <a href="/user/account/{{$user-> id}}">
                   <div class="ml-4 flex items-center md:ml-6">
                       <img class="h-10 w-10 rounded-full" src="{{asset('storage/'.$user-> profileImage)}}" alt="">
                      <span style="padding: 5px">  {{$user-> name}} </span> 
                   </div>
+                  </a>
                 </td>
                 <td>{{$user-> email}}</td>
                 <td>{{$user-> created_at->format('d-m-Y')}}</td>
-                <td><a href="/">{{$user-> total_posts}}</a></td>
+                <td><a href="/user/posts/{{$user->id}}">{{$user-> total_posts}}</a></td>
                 <td> 
                 @if ($user-> type == 1)
                    Member 

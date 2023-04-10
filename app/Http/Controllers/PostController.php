@@ -12,9 +12,9 @@ class PostController extends Controller
         return view("home",["posts"=>Post::where("status",1)->get(),"users"=> User::where("type",1)->get()]);
     }
 
-    public function showPost(Post $post){
+    public function showPost(String $id){
         
-        return view("post",["post"=> Post::find($post-> id)]);
+        return view("post",["post"=> Post::find($id)]);
     }
 
     public function showAddPost(){
@@ -39,7 +39,12 @@ class PostController extends Controller
 
         // $data = Post::find(3);
         // dd($data->all());
+        
         return view("editPost",["post"=> Post::find($post-> id)]);
+    }
+
+    public function showUserPosts(User $user){
+        return view("userPosts",["posts"=> Post::where("user_id",$user-> id)->get()]);
     }
 
     public function addNewPost(Request $request){
@@ -76,8 +81,8 @@ class PostController extends Controller
         return redirect("/");
     }
 
-    public function deleteDeniedPost(Post $post){
-        $posts = Post::onlyTrashed()->find($post-> id);
+    public function deleteDeniedPost(String $id){
+        $posts = Post::onlyTrashed()->find($id);
         $posts->forceDelete();
         return redirect('/admin/requests');
     }
@@ -102,10 +107,12 @@ class PostController extends Controller
         return redirect("/admin/requests");
     }
 
-    public function restore(Post $post){
-        $posts = Post::onlyTrashed()->find($post-> id);
-        $posts->restore();
+    public function restore(String $id){
+        $post = Post::onlyTrashed()->find($id);
         
+        $post-> status = 1 ;
+        $post-> save();
+        $post->restore();
         return redirect("/");
     }
 

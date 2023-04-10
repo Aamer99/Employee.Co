@@ -81,7 +81,7 @@
         <button  class="btn btn-outline-danger" type="submit">Logout</button>
       </form>
       <div style="margin: 10px">
-        <a href="/account" class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-expanded="false" aria-haspopup="true">
+        <a href="/user/account/{{auth()->user()-> id}}" class="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-expanded="false" aria-haspopup="true">
           <img class="h-10 w-10 rounded-full" src="{{asset('storage/'.auth()->user()-> profileImage)}}" alt="">
         </a>
       </div>

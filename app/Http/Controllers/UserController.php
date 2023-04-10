@@ -14,6 +14,10 @@ class UserController extends Controller
         return view("allUsers",['users'=>User::all()]);
     }
 
+    public function showAccount(String $id){
+        return view("account",["user"=> User::find($id)]);
+    }
+
     public function showLogin(){
         return view("login");
     }
@@ -49,7 +53,7 @@ class UserController extends Controller
                  $newUser-> email = $request-> email; 
                  $newUser-> password = Hash::make($request-> userPassword); 
                  $newUser-> profileImage = $imagePath;
-                 $newUser-> type = 1;
+                 $newUser-> type = auth()->user() ? $request-> type :1;
                  $newUser-> total_posts = 0;
                  $newUser->save();
         } 
@@ -64,7 +68,7 @@ class UserController extends Controller
 
     public function login(Request $request){
 
-       $userData= $request->validate([
+        $request->validate([
             'email' => ['email','required'],
             'password'=> ['required'],
          ]);  
@@ -106,8 +110,11 @@ class UserController extends Controller
             $user->  profileImage = $imagePath;
         }
         $user-> save();
-
-        return redirect("/user/all");
-
+        
+        if(auth()->user()-> type == 0){
+            return redirect("/user/all");
+        }
+        
+         return redirect("/user/account/". $user-> id);
      }
 }

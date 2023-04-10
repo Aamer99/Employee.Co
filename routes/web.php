@@ -11,11 +11,12 @@ Route::prefix('/post')->middleware("verifyAuth")->group(function(){
     
     Route::get('/addNew',[PostController::class,"showAddPost"]);
     Route::get('/myPosts/{user}',[PostController::class,"showMyPosts"]);
-    Route::get('/{Post}',[PostController::class,"showPost"]);
+    Route::get('/showPost/{Post}',[PostController::class,"showPost"]);
     Route::get("/edit/{post}",[PostController::class,"showEditPost"]);
 
     Route::put("/approve/{post}",[PostController::class,"approvePost"]);
     Route::put("/edit/{post}",[PostController::class,"editPost"]);
+    Route::put("/restore/{post}",[PostController::class,"restore"]);
 
     Route::delete("/delete/{post}",[PostController::class,"deletePost"]);
     Route::delete('/deny/{post}',[PostController::class,"denyPost"]);
@@ -30,7 +31,10 @@ Route::prefix("/admin")->middleware("verifyAuth")->group(function(){
     Route::get("/addNewUser",[UserController::class,"showAddNewUser"]);
 });
 
+
 Route::prefix("/user")->middleware("verifyAuth")->group(function(){
+
+    Route::post('/logout',[UserController::class,"logout"]);
 
     Route::delete("/delete/{user}",[UserController::class,"deleteUser"]);
 
@@ -38,12 +42,14 @@ Route::prefix("/user")->middleware("verifyAuth")->group(function(){
     Route::get("/all",[UserController::class,'showAllUsers']);
 
     Route::put("/editProfile/{user}",[UserController::class,"editUser"]);
-
+    Route::get("/account/{user}",[UserController::class,"showAccount"]);
+    Route::get("/posts/{user}",[PostController::class,"showUserPosts"]);
 });
 //posts 
 
 Route::get("/",[PostController::class,"index"]);
 Route::post("/addNewPost",[PostController::class,"addNewPost"]);
+
 
 // Route::delete('/post/deny/{post}',[PostController::class,"denyPost"]);
 // Route::put("/post/approve/{post}",[PostController::class,"approvePost"]);
@@ -57,7 +63,7 @@ Route::get("/login",[UserController::class,"showLogin"]);
 Route::get("/register",[UserController::class,"showRegister"]);
 Route::post("/user/login",[UserController::class,"login"]);
 Route::post("/user/register",[UserController::class,"craetUser"]);
-Route::post('/user/logout',[UserController::class,"logout"]);
+
 
 // Route::post("/user/login",[UserController::class,"login"]);
 // Route::post("/user/register",[UserController::class,"craetUser"]);

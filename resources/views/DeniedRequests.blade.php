@@ -35,14 +35,14 @@
         </span>
     
         <span class="ml-3 hidden sm:block">
-          <form method="POST" action="/post/approve/{{$post-> id}}">
+          <form method="POST" action="/post/restore/{{$post-> id}}">
             @csrf 
             @method("PUT")
             <button type="submit" class="inline-flex items-center rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset hover:bg-gray-50" style="background-color: rgba(241, 238, 238, 0.582)">
               <svg class="h-8 w-8 text-green-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
-              Approve
+              Restore 
             </button>
           </form>
          
