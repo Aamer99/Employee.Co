@@ -2,45 +2,79 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use App\Models\User;
+use GuzzleHttp\Psr7\UploadedFile;
 use Tests\TestCase;
+use App\Category;
+use Faker\Generator as Faker;
+use Illuminate\Http\Testing\File;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ExampleTest extends TestCase
 {
+    // use RefreshDatabase;
+    use DatabaseMigrations;
     /**
      * A basic test example.
      */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_the_register(): void
     {
-        // $response = $this->get('/');
+       
+         $this->makeUser();
+        $file = File::create("test.png",100);
         
-        //$resualt = $rep-> create($data);
-        // $user = factory(User::class)->create();
-        // $user = User::factory()->make();
-        $user = User::first();
-        
-      
-        //  $response = $this->actingAs($user);
-        //  $data = [
-        //     'email'=>$response-> email,
-        //     'password' => "admin123456"
-            
-        //     // 'user_id' => $user->id
-        // ];
-    //    ->withSession(['user_id' => $user->id])
-    //    ->post('/login',$data);
-    //    $data = [
-    //     'emial'=>"admin@admin.com",
-    //     'password'=> "admin123456"
-    //    ];
-        // $response = $this->post("/user/login",[$data]);
-   
-      
-        //  $response = $this->post("/user/login",[$data]);
-         
-        // $response->assertStatus(200);
-    
+          $data = [
+            'userName'=> auth()->user()-> name,
+            'email'=> auth()->user()-> email,
+            'userPassword' => auth()->user()-> password,
+            'userPassword_confirmation'=> auth()->user()-> password,
+            'userProfileImage' => $file,
+            'type'=> 1
+         ];
+          $this->withoutExceptionHandling();
+         $response = $this->post("/user/register",$data);      
+         $response->assertStatus(302);
     }
+
+    // public function test_the_(): void
+    // {
+       
+    //      $user = $this->makeUser();
+    
+
+    //       $data = [
+    //         'postTitle'=> "post test",
+    //         'postContent'=> "post Content ",
+    //      ];
+    //       $this->withoutExceptionHandling();
+    //      $response = $this->get("/editProfile/110",$data);      
+    //      $response->assertStatus(200);
+    // } 
+
+    protected function makeUser()
+{
+ 
+
+    $user = new User(
+        [
+            'name'          => 'Tester',
+            'email'         => 'tester4@email.com',
+            'type'          => 0,
+            'password'      => '123456',
+            'total_posts'   => 0,
+        ]
+    );
+    $user->setAttribute('id', 115);
+    $this->be($user)->withSession([$user]);
+}
+
+protected function getUser()
+{
+
+    $user = User::find(11);
+    $this->be($user);
+}
 }

@@ -33,6 +33,9 @@ class UserController extends Controller
     public function showEditUserAccount(User $user){
         return view("editUserAccount",['user'=> User::find($user-> id)]);
     }
+    public function showForgotPassword(){
+        return view("forgotPassword");
+    }
 
     public function craetUser(Request $request){
 
@@ -57,6 +60,7 @@ class UserController extends Controller
                  $newUser-> total_posts = 0;
                  $newUser->save();
         } 
+        
         if(auth()->user()){
             return redirect('/user/all');
         }

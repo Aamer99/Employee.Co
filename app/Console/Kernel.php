@@ -15,10 +15,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->call(function(){
-             $posts = Post::withTrashed()->get();
-            $posts->forceDelete();
-            $posts-> save();
-           
+             $posts = Post::onlyTrashed()->forceDelete();            
         })->everyFourMinutes();
        
     }

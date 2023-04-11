@@ -11,6 +11,16 @@ class Post extends Model
     public $timestamps = true;
     use HasFactory;
     use SoftDeletes;
+    protected $fillable = [
+      'id',
+      'title',
+      'user_id',
+      'status',
+      'content',
+      'deleted_at',
+      'created_at',
+      'updated_at',
+    ];
 
     public function user(){
         return $this->belongsTo(User::class,"user_id");

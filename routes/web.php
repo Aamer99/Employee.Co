@@ -61,6 +61,7 @@ Route::post("/addNewPost",[PostController::class,"addNewPost"]);
 // Route::get("/user/edit/{user}",[UserController::class,"showEditUserAccount"]);
 Route::get("/login",[UserController::class,"showLogin"]);
 Route::get("/register",[UserController::class,"showRegister"]);
+Route::get("/forgotPassword",[UserController::class,"showForgotPassword"]);
 Route::post("/user/login",[UserController::class,"login"]);
 Route::post("/user/register",[UserController::class,"craetUser"]);
 
